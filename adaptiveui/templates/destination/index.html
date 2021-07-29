@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Select Destination{% endblock %}
+
+{% block header %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Vehicle UI</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Main Screen</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="time"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="date"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<style>
+
+  .hidden {
+    display: none;
+  }
+  
+  </style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2 class="pt-3 pb-3">Destination Selection</h2>
+  <form action="{{ url_for('travelui.index') }}" method="post">
+        <input id="destination" style="border-radius:20px;" name="destination" type="text" placeholder="Destination" class="form-control" aria-label="Destination" aria-describedby="basic-addon1" autocomplete="off" required>
+        <button type="submit" class="hidden"></button>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@ideal-postcodes/address-finder-bundled/dist/address-finder.js"></script>
+<script>
+  
+  IdealPostcodes.AddressFinder.setup({
+    inputField: "#destination", // Target <input> to host Address Finder
+    apiKey: "ak_krnotz7a4JgJOZuJ26lNGtQeu4aso", // API Key from your account
+    outputFields: {
+     postcode: '#destination'
+  }
+  });
+  document.getElementById("destination").setAttribute("autocomplete", "off");
+
+  function updateTime() {
+  var today = new Date();
+var hours = today.getHours();
+var minutes = today.getMinutes();
+document.getElementById("time").innerHTML = hours + ":" + minutes;
+}
+
+function setDate() {
+  var today = new Date();
+var year = today.getFullYear();
+var month = today.getMonth() + 1;
+var day = today.getDate();
+var minutes = today.getMinutes();
+document.getElementById("date").innerHTML = day + "/" + month + "/" + year;
+}
+updateTime();
+  setInterval(updateTime, 30000);
+  setDate();
+
+  </script>
+  </script>
+
+{% endblock %}

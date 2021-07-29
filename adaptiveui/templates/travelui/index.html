@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+
+{% block title %}Travel UI{% endblock %}
+
+{% block header %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Vehicle UI</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">Main Screen</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="time"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="date"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to cancel your journey?</h5>
+      </div>
+      <div class="modal-body">
+        The car will find the nearest safe place to stop.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a class="btn btn-danger" href="{{ url_for('destination.index') }}" role="button">Cancel Trip</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h2 class="pt-3">Going to {{ destination }}</h2>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="container" id="progresscontainer">
+  <div class="progress">
+  <div id="progress" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Calculating Route...</div>
+</div>
+</div>
+
+<script>
+  function myFunction(value) {
+    document.getElementById("progress").style.width=value;
+    document.getElementById("progress").setAttribute("aria-valuenow", parseFloat(value))
+  }
+
+  function hideProgress() {
+    document.getElementById("progresscontainer")
+            .style.opacity = 0;
+  }
+
+  function updateTime() {
+  var today = new Date();
+var hours = today.getHours();
+var minutes = today.getMinutes();
+document.getElementById("time").innerHTML = hours + ":" + minutes;
+}
+
+function setDate() {
+  var today = new Date();
+var year = today.getFullYear();
+var month = today.getMonth() + 1;
+var day = today.getDate();
+var minutes = today.getMinutes();
+document.getElementById("date").innerHTML = day + "/" + month + "/" + year;
+}
+
+
+  myFunction("25%")
+  setTimeout(function() {myFunction("50%")}, 1000);
+  setTimeout(function() {myFunction("75%")}, 2000);
+  setTimeout(function() {myFunction("100%")}, 3000);
+  setTimeout(hideProgress, 4000);
+  updateTime();
+  setDate();
+  setInterval(updateTime, 30000);
+  </script>
+
+<!-- Code from https://docs.mapbox.com/mapbox-gl-js/example/marker-from-geocode/ -->
+<div class="container">
+<div id="map" style="height:300px"></div>
+<script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"></script>
+<script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+<script>
+
+mapboxgl.accessToken = 'pk.eyJ1IjoibmhhcmlrcmlzaG5hbiIsImEiOiJja3JvMmo5ZjUwcmwzMm5ycWFqNDhndHlyIn0.r9jayDliuFbWWDXlDB0USg';
+var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+mapboxClient.geocoding
+.forwardGeocode({
+query: '{{ destination }}',
+autocomplete: false,
+limit: 1
+})
+.send()
+.then(function (response) {
+if (
+response &&
+response.body &&
+response.body.features &&
+response.body.features.length
+) {
+var feature = response.body.features[0];
+ 
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/streets-v11',
+center: feature.center,
+zoom: 10
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+ 
+// Create a marker and add it to the map.
+new mapboxgl.Marker().setLngLat(feature.center).addTo(map);
+}
+});
+</script>
+ 
+</body>
+</html>
+</script>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 pb-3 pt-3">
+      <div class="card" style="border-radius:20px;">
+        <div class="card-body">
+          <h5 class="card-title">Journey Time Left</h5>
+          <p class="card-text">0:21</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 pb-3 pt-3">
+      <div class="card" style="border-radius:20px;">
+        <div class="card-body">
+          <h5 class="card-title">Speed</h5>
+          <p class="card-text">30 mph</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 pb-3 pt-3">
+      <div class="card" style="border-radius:20px;"> 
+        <div class="card-body">
+          <h5 class="card-title">Traffic News</h5>
+          <p class="card-text">None</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 pb-3 pt-3">
+      <div class="card" style="border-radius:20px;">
+        <div class="card-body">
+          <h5 class="card-title">News</h5>
+          <p class="card-text">UK economy grew by 2.1% in July</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 pb-3 pt-3">
+      <div class="card" style="border-radius:20px;">
+        <div class="card-body">
+          <h5 class="card-title">Temperature</h5>
+          <p class="card-text">12 degrees</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 pb-3 pt-3">
+      <div class="card" style="border-radius:20px;">
+        <div class="card-body">
+          <h5 class="card-title">Fuel</h5>
+          <p class="card-text">10L</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
