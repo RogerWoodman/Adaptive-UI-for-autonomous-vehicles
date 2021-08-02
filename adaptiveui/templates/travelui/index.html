@@ -68,20 +68,35 @@
   }
 
   function updateTime() {
-  var today = new Date();
-var hours = today.getHours();
-var minutes = today.getMinutes();
-document.getElementById("time").innerHTML = hours + ":" + minutes;
-}
+    var today = new Date();
+    var hours = today.getHours();
+    var minutes = today.getMinutes();
+    if (hours < 10) {
+      hours = "0" + hours;
+    }
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+    if (hours == 0 && minutes == 0) {
+      setDate();
+    }
+    document.getElementById("time").innerHTML = hours + ":" + minutes;
+  }
 
-function setDate() {
-  var today = new Date();
-var year = today.getFullYear();
-var month = today.getMonth() + 1;
-var day = today.getDate();
-var minutes = today.getMinutes();
-document.getElementById("date").innerHTML = day + "/" + month + "/" + year;
-}
+  function setDate() {
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = today.getMonth() + 1;
+    var day = today.getDate();
+    var minutes = today.getMinutes();
+    if (day < 10) {
+      day = "0" + day;
+    }
+    if (month < 10) {
+      month = "0" + month;
+    }
+    document.getElementById("date").innerHTML = day + "/" + month + "/" + year;
+  }
 
 
   myFunction("25%")
@@ -90,8 +105,8 @@ document.getElementById("date").innerHTML = day + "/" + month + "/" + year;
   setTimeout(function() {myFunction("100%")}, 3000);
   setTimeout(hideProgress, 4000);
   updateTime();
+  setInterval(updateTime, 10000);
   setDate();
-  setInterval(updateTime, 30000);
   </script>
 
 <!-- Code from https://docs.mapbox.com/mapbox-gl-js/example/marker-from-geocode/ -->
