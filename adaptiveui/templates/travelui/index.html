@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Main Screen</a>
+          <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Cancel Trip</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" id="time"></a>
@@ -217,8 +217,7 @@ map.addControl(new mapboxgl.NavigationControl());
 // based on https://stackoverflow.com/questions/51530395/how-do-i-prefill-the-origin-and-destination-of-a-mapbox-directions-api
 map.on('load', function() {
   var directions = new MapboxDirections({
-    accessToken: mapboxgl.accessToken,
-    profile: 'mapbox/driving' // https://github.com/mapbox/mapbox-gl-directions
+    accessToken: mapboxgl.accessToken
   });
   map.addControl(directions, 'top-left');
 
