@@ -43,9 +43,26 @@
   </div>
 </div>
 
+<div class="alert alert-danger" role="alert">
+  Icy road surfaces on route
+</div>
+
+<div class="alert alert-warning" role="alert">
+  Longer distance route has been chosen to avoid traffic
+</div>
+
 <div class="container">
   <h2 class="pt-3">Going to {{ destination }}</h2>
 </div>
+
+<style>
+  .fa-sun {
+    color: yellow;
+  }
+  .fa-cloud {
+    color: grey;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -242,7 +259,7 @@ new mapboxgl.Marker().setLngLat(feature.center).addTo(map);
       <div class="card" style="border-radius:20px;">
         <div class="card-body">
           <h5 class="card-title">News</h5>
-          <p class="card-text">UK economy grew by 2.1% in July</p>
+          <p class="card-text">UK economy grew by 0.1% in December</p>
           <p>
             <a class="btn btn-primary" id="news" onclick="changeNewsButtonText()" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
               More news
@@ -260,7 +277,7 @@ new mapboxgl.Marker().setLngLat(feature.center).addTo(map);
       <div class="card" style="border-radius:20px;">
         <div class="card-body">
           <h5 class="card-title">Temperature</h5>
-          <p class="card-text">12°C</p>
+          <p class="card-text">0°C</p>
           <p>
             <a class="btn btn-primary" id="weather" onclick="changeWeatherButtonText()" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
               More weather
@@ -268,10 +285,11 @@ new mapboxgl.Marker().setLngLat(feature.center).addTo(map);
           </p>
           <div class="collapse" id="collapseExample3">
             <div class="card card-body">
-              <p>Tuesday 25°C, 15°C</p>
-              <p>Wednesday 23°C, 13°C</p>
-              <p>Thursday 24°C, 13°C</p>
-              <p>Friday 20°C, 11°C</p>
+              <h6>London Weather</h6>
+              <p><i class="fas fa-sun fa-lg"></i> Tuesday Max: 4°C, Min: -1°C</p>
+              <p><i class="fas fa-cloud fa-lg"></i> Wednesday Max: 5°C, Min: 0°C</p>
+              <p><i class="fas fa-cloud fa-lg"></i> Thursday Max: 7°C, Min: 2°C</p>
+              <p><i class="fas fa-cloud fa-lg"></i> Friday Max: 8°C, Min: 4°C</p>
             </div>
           </div>
         </div>
