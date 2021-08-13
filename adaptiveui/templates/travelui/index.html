@@ -178,9 +178,13 @@
 
 <!-- Code from https://docs.mapbox.com/mapbox-gl-js/example/marker-from-geocode/ -->
 <div class="container">
-<div id="map" style="height:300px"></div>
+<div id="map" style="height:500px"></div>
 <script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"></script>
 <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
+
 <script>
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibmhhcmlrcmlzaG5hbiIsImEiOiJja3JvMmo5ZjUwcmwzMm5ycWFqNDhndHlyIn0.r9jayDliuFbWWDXlDB0USg';
@@ -209,9 +213,19 @@ zoom: 10
 });
 
 map.addControl(new mapboxgl.NavigationControl());
- 
-// Create a marker and add it to the map.
-new mapboxgl.Marker().setLngLat(feature.center).addTo(map);
+
+// based on https://stackoverflow.com/questions/51530395/how-do-i-prefill-the-origin-and-destination-of-a-mapbox-directions-api
+map.on('load', function() {
+  var directions = new MapboxDirections({
+    accessToken: mapboxgl.accessToken,
+    profile: 'mapbox/driving' // https://github.com/mapbox/mapbox-gl-directions
+  });
+  map.addControl(directions, 'top-left');
+
+  directions.setOrigin('London, England');
+  directions.setDestination('{{ destination }}');
+});
+
 }
 });
 </script>
