@@ -21,13 +21,7 @@
     </div>
   </div>
 </nav>
-<style>
 
-  .hidden {
-    display: none;
-  }
-  
-  </style>
 {% endblock %}
 
 {% block content %}
@@ -36,7 +30,7 @@
   <h2 class="pt-3 pb-3">Destination Selection</h2>
   <form action="{{ url_for('travelui.index') }}" method="post">
         <input id="destination" style="border-radius:20px;" name="destination" type="text" placeholder="Destination" class="form-control" aria-label="Destination" aria-describedby="basic-addon1" autocomplete="off" required>
-        <button type="submit" class="hidden"></button>
+        <button type="submit" style="border-radius:20px;" class="btn btn-primary"><i class="fas fa-search"></i></button>
   </form>
   <h2 class="pt-3 pb-3">Your Top Destinations</h2>
   <div class="col-sm-6 pb-3 pt-3">
