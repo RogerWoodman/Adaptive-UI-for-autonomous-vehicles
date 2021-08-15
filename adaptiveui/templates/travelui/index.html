@@ -52,7 +52,13 @@
 </div>
 
 <div class="container">
-  <h2 class="pt-3">Going to {{ destination }}</h2>
+  <!-- For input field destination -->
+  {% if user_preferences['destination'] != ""-%}
+  <h2 class="pt-3">Going to {{ user_preferences['destination'] }}</h2>
+  <!-- For button destination -->
+  {% else -%}
+  <h2 class="pt-3">Going to {{ user_preferences['destination2'] }}</h2>
+  {%- endif %}
 </div>
 
 <style>
@@ -185,55 +191,104 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
 
+<!-- For input field destination -->
+{% if user_preferences['destination'] != "" -%}
 <script>
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibmhhcmlrcmlzaG5hbiIsImEiOiJja3JvMmo5ZjUwcmwzMm5ycWFqNDhndHlyIn0.r9jayDliuFbWWDXlDB0USg';
-var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
-mapboxClient.geocoding
-.forwardGeocode({
-query: '{{ destination }}',
-autocomplete: false,
-limit: 1
-})
-.send()
-.then(function (response) {
-if (
-response &&
-response.body &&
-response.body.features &&
-response.body.features.length
-) {
-var feature = response.body.features[0];
- 
-var map = new mapboxgl.Map({
-container: 'map',
-style: 'mapbox://styles/mapbox/streets-v11',
-center: feature.center,
-zoom: 10
-});
-
-map.addControl(new mapboxgl.NavigationControl());
-
-// based on https://stackoverflow.com/questions/51530395/how-do-i-prefill-the-origin-and-destination-of-a-mapbox-directions-api
-map.on('load', function() {
-  var directions = new MapboxDirections({
-    accessToken: mapboxgl.accessToken
+  mapboxgl.accessToken = 'pk.eyJ1IjoibmhhcmlrcmlzaG5hbiIsImEiOiJja3JvMmo5ZjUwcmwzMm5ycWFqNDhndHlyIn0.r9jayDliuFbWWDXlDB0USg';
+  var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+  mapboxClient.geocoding
+  .forwardGeocode({
+  query: '{{ user_preferences["destination"] }}',
+  autocomplete: false,
+  limit: 1
+  })
+  .send()
+  .then(function (response) {
+  if (
+  response &&
+  response.body &&
+  response.body.features &&
+  response.body.features.length
+  ) {
+  var feature = response.body.features[0];
+   
+  var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v11',
+  center: feature.center,
+  zoom: 10
   });
-  map.addControl(directions, 'top-left');
+  
+  map.addControl(new mapboxgl.NavigationControl());
+  
+  // based on https://stackoverflow.com/questions/51530395/how-do-i-prefill-the-origin-and-destination-of-a-mapbox-directions-api
+  map.on('load', function() {
+    var directions = new MapboxDirections({
+      accessToken: mapboxgl.accessToken
+    });
+    map.addControl(directions, 'top-left');
+  
+    directions.setOrigin('London, England');
+    directions.setDestination('{{ user_preferences["destination"] }}');
+  });
+  
+  }
+  });
+  </script>
+<!-- Only button clicked -->
+{% else -%}
+<script>
 
-  directions.setOrigin('London, England');
-  directions.setDestination('{{ destination }}');
-});
-
-}
-});
-</script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoibmhhcmlrcmlzaG5hbiIsImEiOiJja3JvMmo5ZjUwcmwzMm5ycWFqNDhndHlyIn0.r9jayDliuFbWWDXlDB0USg';
+  var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+  mapboxClient.geocoding
+  .forwardGeocode({
+  query: '{{ user_preferences["destination2"] }}',
+  autocomplete: false,
+  limit: 1
+  })
+  .send()
+  .then(function (response) {
+  if (
+  response &&
+  response.body &&
+  response.body.features &&
+  response.body.features.length
+  ) {
+  var feature = response.body.features[0];
+   
+  var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v11',
+  center: feature.center,
+  zoom: 10
+  });
+  
+  map.addControl(new mapboxgl.NavigationControl());
+  
+  // based on https://stackoverflow.com/questions/51530395/how-do-i-prefill-the-origin-and-destination-of-a-mapbox-directions-api
+  map.on('load', function() {
+    var directions = new MapboxDirections({
+      accessToken: mapboxgl.accessToken
+    });
+    map.addControl(directions, 'top-left');
+  
+    directions.setOrigin('London, England');
+    directions.setDestination('{{ user_preferences["destination2"] }}');
+  });
+  
+  }
+  });
+  </script>
+{%- endif %}
  
 </body>
 </html>
 </script>
 <div class="container">
   <div class="row">
+    {% if user_preferences["time"] | int  == 1 -%} <!-- https://devops-fu.org/2018/08/23/how-to-convert-a-string-to-int-in-jinja2/ -->
     <div class="col-sm-6 pb-3 pt-3">
       <div class="card" style="border-radius:20px;">
         <div class="card-body">
@@ -242,6 +297,8 @@ map.on('load', function() {
         </div>
       </div>
     </div>
+    {%- endif %}
+    {% if user_preferences["speed"] | int == 1 -%}
     <div class="col-sm-6 pb-3 pt-3">
       <div class="card" style="border-radius:20px;">
         <div class="card-body">
@@ -250,6 +307,8 @@ map.on('load', function() {
         </div>
       </div>
     </div>
+    {%- endif %}
+    {% if user_preferences["traffic"] | int == 1 -%}
     <div class="col-sm-6 pb-3 pt-3">
       <div class="card" style="border-radius:20px;"> 
         <div class="card-body">
@@ -268,6 +327,8 @@ map.on('load', function() {
         </div>
       </div>
     </div>
+    {%- endif %}
+    {% if user_preferences["news"] | int == 1 -%}
     <div class="col-sm-6 pb-3 pt-3">
       <div class="card" style="border-radius:20px;">
         <div class="card-body">
@@ -286,6 +347,8 @@ map.on('load', function() {
         </div>
       </div>
     </div>
+    {%- endif %}
+    {% if user_preferences["weather"] | int == 1 -%}
     <div class="col-sm-6 pb-3 pt-3">
       <div class="card" style="border-radius:20px;">
         <div class="card-body">
@@ -308,6 +371,8 @@ map.on('load', function() {
         </div>
       </div>
     </div>
+    {%- endif %}
+    {% if user_preferences["fuel"] | int == 1 -%}
     <div class="col-sm-6 pb-3 pt-3">
       <div class="card" style="border-radius:20px;">
         <div class="card-body">
@@ -326,6 +391,8 @@ map.on('load', function() {
         </div>
       </div>
     </div>
+    {%- endif %}
+    {% if user_preferences["stocks"] | int == 1 -%}
     <div class="col-sm-6 pb-3 pt-3">
       <div class="card" style="border-radius:20px;">
         <div class="card-body">
@@ -345,6 +412,8 @@ map.on('load', function() {
         </div>
       </div>
     </div>
+    {%- endif %}
+    {% if user_preferences["music"] | int == 1 -%}
     <div class="col-sm-6 pb-3 pt-3">
       <div class="card" style="border-radius:20px;">
         <div class="card-body">
@@ -359,6 +428,7 @@ map.on('load', function() {
         </div>
       </div>
     </div>
+    {%- endif %}
   </div>
 </div>
 {% endblock %}
