@@ -29,28 +29,41 @@
   <h2 class="pt-3 pb-3">Current location: London</h2>
   <h2 class="pt-3 pb-3">Destination Selection</h2>
   <form action="{{ url_for('travelui.index') }}" method="post">
-        <input id="destination" style="border-radius:20px;" name="destination" type="text" placeholder="Destination" class="form-control" aria-label="Destination" aria-describedby="basic-addon1" autocomplete="off" required>
-        <button type="submit" style="border-radius:20px;" class="btn btn-primary"><i class="fas fa-search"></i></button>
-  </form>
-  <h2 class="pt-3 pb-3">Your Top Destinations</h2>
+        <h3 class="pt-3 pb-3">Preferences</h3>
+        <p>Do you want to see fuel statistics?</p>
+        <select name="fuel" id="fuel" required>
+          <option value="">Please Select</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+        <p>Do you want to see the latest news?</p>
+        <select name="news" id="news" required>
+          <option value="">Please Select</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+        <p>Do you want to see the latest traffic news?</p>
+        <select name="traffic" id="traffic" required>
+          <option value="">Please Select</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+        <p>Do you want to see the remaining journey time?</p>
+        <select name="time" id="time" required>
+          <option value="">Please Select</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+        <!-- Choose between input field destination or button destination -->
+        <h3 class="pt-3 pb-3">Option 1: Enter your destination</h3>
+        <input id="destination" style="border-radius:20px;" name="destination" type="text" placeholder="Destination" class="form-control" aria-label="Destination" aria-describedby="basic-addon1" autocomplete="off">
+        <div class="col-sm-6 pb-3 pt-3"><button type="submit" style="border-radius:20px;" class="btn btn-primary"><i class="fas fa-search"></i></button></div>
+  <h3 class="pt-3 pb-3">Option 2: Choose your most frequently visited destination</h3>
   <div class="col-sm-6 pb-3 pt-3">
-    <form action="{{ url_for('travelui.index') }}" method="post">
-      <input type="hidden" name="destination" value="CV4 7AL">
+      <input type="hidden" id="destination2" name="destination2" value="CV4 7AL">
       <button type="submit" class="btn btn-primary">University of Warwick CV4 7AL</button>
-    </form>
   </div>
-  <div class="col-sm-6 pb-3 pt-3">
-    <form action="{{ url_for('travelui.index') }}" method="post">
-      <input type="hidden" name="destination" value="CV4 7EH">
-      <button type="submit" class="btn btn-primary">Tesco CV4 7EH</button>
-    </form>
-  </div>
-  <div class="col-sm-6 pb-3 pt-3">
-    <form action="{{ url_for('travelui.index') }}" method="post">
-      <input type="hidden" name="destination" value="CV1 2GT">
-      <button type="submit" class="btn btn-primary">Coventry Station CV1 2GT</button>
-    </form>
-  </div>
+  </form>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@ideal-postcodes/address-finder-bundled/dist/address-finder.js"></script>
