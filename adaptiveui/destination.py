@@ -9,8 +9,8 @@ bp = Blueprint('destination', __name__)
 @bp.route('/', methods=('GET', 'POST'))
 def index():
     if request.method == 'POST':
-        destination = request.form['destination']
- 
+        user_preferences = request.form
+        
         return redirect(url_for('travelui.index'))
 
     return render_template('destination/index.html')
