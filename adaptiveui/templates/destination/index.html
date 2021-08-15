@@ -32,11 +32,31 @@
 
 {% block content %}
 <div class="container">
+  <h2 class="pt-3 pb-3">Current location: London</h2>
   <h2 class="pt-3 pb-3">Destination Selection</h2>
   <form action="{{ url_for('travelui.index') }}" method="post">
         <input id="destination" style="border-radius:20px;" name="destination" type="text" placeholder="Destination" class="form-control" aria-label="Destination" aria-describedby="basic-addon1" autocomplete="off" required>
         <button type="submit" class="hidden"></button>
   </form>
+  <h2 class="pt-3 pb-3">Your Top Destinations</h2>
+  <div class="col-sm-6 pb-3 pt-3">
+    <form action="{{ url_for('travelui.index') }}" method="post">
+      <input type="hidden" name="destination" value="CV4 7AL">
+      <button type="submit" class="btn btn-primary">University of Warwick CV4 7AL</button>
+    </form>
+  </div>
+  <div class="col-sm-6 pb-3 pt-3">
+    <form action="{{ url_for('travelui.index') }}" method="post">
+      <input type="hidden" name="destination" value="CV4 7EH">
+      <button type="submit" class="btn btn-primary">Tesco CV4 7EH</button>
+    </form>
+  </div>
+  <div class="col-sm-6 pb-3 pt-3">
+    <form action="{{ url_for('travelui.index') }}" method="post">
+      <input type="hidden" name="destination" value="CV1 2GT">
+      <button type="submit" class="btn btn-primary">Coventry Station CV1 2GT</button>
+    </form>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@ideal-postcodes/address-finder-bundled/dist/address-finder.js"></script>
