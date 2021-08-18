@@ -1,7 +1,5 @@
 from sklearn.tree import DecisionTreeClassifier
 
-from sklearn.model_selection import train_test_split # Import train_test_split function
-
 from sklearn.metrics import accuracy_score #Import scikit-learn metrics module for accuracy calculation
 
 from sklearn.model_selection import KFold
