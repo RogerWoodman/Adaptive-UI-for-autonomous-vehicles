@@ -4,6 +4,14 @@ This GitHub repository is home to the code for the [Adaptive User Interfaces for
 
 ## Run
 
+Linux:
+```
+$ export FLASK_APP=adaptiveui
+$ export FLASK_ENV=development
+$ flask run
+```
+
+Windows:
 ```
 set FLASK_APP=adaptiveui
 set FLASK_ENV=development
