@@ -5,3 +5,5 @@ itsdangerous==2.0.1
 Jinja2==3.0.1
 MarkupSafe==2.0.1
 Werkzeug==2.0.1
+pandas==1.1.4
+scikit_learn==0.24.2
