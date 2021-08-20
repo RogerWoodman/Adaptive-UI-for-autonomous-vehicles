@@ -27,6 +27,10 @@ flask run
 
 Go to http://127.0.0.1:5000 to access the UI.
 
+## Run
+
+To test the decision tree's accuracy, run test_decision_tree.py and tweak the sample dataset if needed.
+
 ## Acknowledgements
 
 Thanks go to [Dr Roger Woodman](https://warwick.ac.uk/fac/sci/wmg/research/cav/humanfactors/people/rogerwoodman/) for supervising this project. His advice was invaluable for the project.
