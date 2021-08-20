@@ -27,7 +27,7 @@ flask run
 
 Go to http://127.0.0.1:5000 to access the UI.
 
-## Run
+## Test
 
 To test the decision tree's accuracy, run test_decision_tree.py and tweak the tile_data labels ("include" row) if needed.
 
