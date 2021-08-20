@@ -2,6 +2,13 @@
 
 This GitHub repository is home to the code for the [Adaptive User Interfaces for Autonomous Vehicles](https://warwick.ac.uk/fac/sci/wmg/education/internships/wmg_research_internships/projects/rogerwoodman) WMG project, completed during Summer 2021.
 
+## Install
+
+Install the packages in requirements.txt:
+```
+pip install -r requirements.txt
+```
+
 ## Run
 
 Linux:
