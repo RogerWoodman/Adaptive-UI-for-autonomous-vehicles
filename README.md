@@ -25,6 +25,8 @@ set FLASK_ENV=development
 flask run
 ```
 
+Open http://127.0.0.1:5000 to access the UI.
+
 ## Acknowledgements
 
 Thanks go to [Dr Roger Woodman](https://warwick.ac.uk/fac/sci/wmg/research/cav/humanfactors/people/rogerwoodman/) for supervising this project. His advice was invaluable for the project.
