@@ -11,6 +11,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Text Size</a>
+          <ul class="dropdown-menu">
+            <li style="padding:10px;">Change text size relative to default size</li>
+            <li style="padding:10px;"><span id="slider-value">1 </span><input id="slider" type="range" min="0.5" max="3" value="1" step="0.1" onchange="changeTextSize()"></li>
+          </ul>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="#" id="time"></a>
         </li>
@@ -25,7 +32,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container" id="main-content">
   <h2 class="pt-3 pb-3">Current location: London</h2>
   <h2 class="pt-3 pb-3">Destination Selection</h2>
   <form action="{{ url_for('travelui.index') }}" method="post">
@@ -112,7 +119,11 @@
   setInterval(updateTime, 10000);
   setDate();
 
-  </script>
-  </script>
+  function changeTextSize() {
+  	document.getElementById("slider-value").innerHTML = document.getElementById("slider").value;
+    document.getElementById("main-content").style.fontSize = document.getElementById("slider").value + "em";
+  }
+
+</script>
 
 {% endblock %}

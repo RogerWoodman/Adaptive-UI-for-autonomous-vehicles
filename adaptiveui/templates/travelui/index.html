@@ -14,6 +14,13 @@
         <li class="nav-item">
           <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Cancel Trip</a>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Text Size</a>
+          <ul class="dropdown-menu">
+            <li style="padding:10px;">Change text size relative to default size</li>
+            <li style="padding:10px;"><span id="slider-value">1 </span><input id="slider" type="range" min="0.5" max="3" value="1" step="0.1" onchange="changeTextSize()"></li>
+          </ul>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="#" id="time"></a>
         </li>
@@ -43,12 +50,14 @@
   </div>
 </div>
 
-<div class="alert alert-danger" role="alert">
-  Icy road surfaces on route
-</div>
+<div id="alerts">
+  <div class="alert alert-danger" role="alert">
+    Icy road surfaces on route
+  </div>
 
-<div class="alert alert-warning" role="alert">
-  Longer distance route has been chosen to avoid traffic
+  <div class="alert alert-warning" role="alert">
+    Longer distance route has been chosen to avoid traffic
+  </div>
 </div>
 
 <div class="container">
@@ -171,6 +180,12 @@
     }
   }
 
+  function changeTextSize() {
+  	document.getElementById("slider-value").innerHTML = document.getElementById("slider").value;
+    document.getElementById("alerts").style.fontSize = document.getElementById("slider").value + "em";
+    document.getElementById("main-content").style.fontSize = document.getElementById("slider").value + "em";
+  }
+
 
   myFunction("25%")
   setTimeout(function() {myFunction("50%")}, 1000);
@@ -282,11 +297,8 @@
   });
   </script>
 {%- endif %}
- 
-</body>
-</html>
-</script>
-<div class="container">
+
+<div class="container" id="main-content">
   <div class="row">
     {% if user_preferences["time"] | int  == 1 -%} <!-- https://devops-fu.org/2018/08/23/how-to-convert-a-string-to-int-in-jinja2/ -->
     <div class="col-sm-6 pb-3 pt-3">
