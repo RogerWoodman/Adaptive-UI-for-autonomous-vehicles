@@ -40,36 +40,44 @@
   <h2 class="pt-3 pb-3">Destination Selection</h2>
   <form action="{{ url_for('travelui.index') }}" method="post">
         <h3 class="pt-3 pb-3">Preferences</h3>
-        <p>Do you want to see fuel statistics?</p>
-        <select class="form-control" name="fuel" id="fuel" required>
-          <option value="">Please Select</option>
-          <option value="1">Yes</option>
-          <option value="0">No</option>
-        </select>
-        <p>Do you want to see the latest news?</p>
-        <select class="form-control" name="news" id="news" required>
-          <option value="">Please Select</option>
-          <option value="1">Yes</option>
-          <option value="0">No</option>
-        </select>
-        <p>Do you want to see the latest traffic news?</p>
-        <select class="form-control" name="traffic" id="traffic" required>
-          <option value="">Please Select</option>
-          <option value="1">Yes</option>
-          <option value="0">No</option>
-        </select>
-        <p>Do you want to see the remaining journey time?</p>
-        <select class="form-control" name="time" id="time" required>
-          <option value="">Please Select</option>
-          <option value="1">Yes</option>
-          <option value="0">No</option>
-        </select>
+        <div class="mb-3">
+          <label for="exampleFormControlSelect1" class="form-label">Do you want to see fuel statistics?</label>
+          <select class="form-control" name="fuel" id="fuel" required>
+            <option value="">Please Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlSelect2" class="form-label">Do you want to see the latest news?</label>
+          <select class="form-control" name="news" id="news" required>
+            <option value="">Please Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlSelect3" class="form-label">Do you want to see the latest traffic news?</label>
+          <select class="form-control" name="traffic" id="traffic" required>
+            <option value="">Please Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlSelect4" class="form-label">Do you want to see the remaining journey time?</label>
+          <select class="form-control" name="time" id="time" required>
+            <option value="">Please Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
         <!-- Choose between input field destination or button destination -->
         <h3 class="pt-3 pb-3">Option 1: Enter your destination</h3>
         <input id="destination" style="border-radius:20px;" name="destination" type="text" placeholder="Destination" class="form-control" aria-label="Destination" aria-describedby="basic-addon1" autocomplete="off">
-        <div class="col-sm-6 pb-3 pt-3"><button type="submit" style="border-radius:20px;" class="btn btn-primary"><i class="fas fa-search"></i></button></div>
+        <div class="pb-3 pt-3"><button type="submit" style="border-radius:20px;" class="btn btn-primary"><i class="fas fa-search"></i></button></div>
   <h3 class="pt-3 pb-3">Option 2: Choose your most frequently visited destination</h3>
-  <div class="col-sm-6 pb-3 pt-3">
+  <div class="mb-3">
       <input type="hidden" id="destination2" name="destination2" value="CV4 7AL">
       <button type="submit" class="btn btn-primary">University of Warwick CV4 7AL</button>
   </div>
