@@ -19,6 +19,9 @@
           <ul class="dropdown-menu">
             <li style="padding:10px;">Change text size relative to default size</li>
             <li style="padding:10px;"><span id="slider-value">1 </span><input id="slider" type="range" min="0.5" max="3" value="1" step="0.1" onchange="changeTextSize()"></li>
+            <li style="padding:10px;"><button class="btn btn-primary" id="default-text-size" onclick="changeTextSizeToDefault()">
+              Reset Text Size
+            </button></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -184,6 +187,13 @@
   	document.getElementById("slider-value").innerHTML = document.getElementById("slider").value;
     document.getElementById("alerts").style.fontSize = document.getElementById("slider").value + "em";
     document.getElementById("main-content").style.fontSize = document.getElementById("slider").value + "em";
+  }
+
+  function changeTextSizeToDefault() {
+    document.getElementById("alerts").style.fontSize = "1em";
+  	document.getElementById("main-content").style.fontSize = "1em";
+    document.getElementById("slider").value = "1";
+    document.getElementById("slider-value").innerHTML = document.getElementById("slider").value;
   }
 
 
