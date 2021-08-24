@@ -26,7 +26,7 @@ def index():
     X_train = df[cols]
     y_train = df['include']
 
-    clf = DecisionTreeClassifier(max_leaf_nodes=8, random_state=0)
+    clf = DecisionTreeClassifier(random_state=1)
     clf.fit(X_train, y_train)
 
     test_data = { # determine whether music, weather, stocks and speed need to be shown
