@@ -26,22 +26,26 @@ y = df['include']
 #Implementing cross validation
 k = 2 # similar idea to form where 4 questions are used in training and 4 questions are predicted (test)
 kf = KFold(n_splits=k, shuffle=True, random_state=1)
-clf = DecisionTreeClassifier(max_leaf_nodes=8, random_state=1)
+clf = DecisionTreeClassifier(random_state=1)
  
 acc_score = []
  
-for train_index , test_index in kf.split(X):
+for train_index, test_index in kf.split(X):
     X_train, X_test = X.iloc[train_index], X.iloc[test_index]
     y_train, y_test = y.iloc[train_index], y.iloc[test_index]
      
     clf.fit(X_train,y_train)
     pred_values = clf.predict(X_test)
      
-    acc = accuracy_score(pred_values , y_test)
+    acc = accuracy_score(pred_values, y_test)
     acc_score.append(acc)
-
+    
+    print("---FOLD---")
+    print("Predictions")
     print(pred_values)
+    print("Actual")
     print(y_test)
+    print("----------")
      
 avg_acc_score = sum(acc_score)/ k
  
